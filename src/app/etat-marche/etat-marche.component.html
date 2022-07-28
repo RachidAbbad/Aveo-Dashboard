@@ -1,0 +1,94 @@
+<button mat-fab class="floated-left" color="primary" (click)="decValue()" aria-label="Button left">
+    <fa-icon [icon] = "arrow_left"></fa-icon>
+</button>
+<button mat-fab class="floated-right" (click)="incValue()" color="primary" aria-label="Button right">
+    <fa-icon [icon] = "arrow_right"></fa-icon>
+</button>
+<mat-tab-group dynamicHeight [selectedIndex]="tabValue">
+    <mat-tab *ngFor="let site of data.sites" label="{{site.name}}">
+        <div class="row">
+            <div class="top-section container-fluid">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col">
+                                <div class=" font-weight-bold text-primary text-uppercase mb-1">HeatPilotes</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{site.cartes.heatpilotes.connected}}/{{site.cartes.heatpilotes.total}} En Ligne</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col">
+                                <div class=" font-weight-bold text-success text-uppercase mb-1">Capteurs</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{site.cartes.capteurs.connected}}/{{site.cartes.capteurs.total}} En Ligne</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col">
+                                <div class="font-weight-bold text-info text-uppercase mb-1">Equipements</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{site.cartes.equipements.connected}}/{{site.cartes.equipements.total}} En Ligne</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col">
+                                <div class=" font-weight-bold text-warning text-uppercase mb-1">Gateway</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{site.cartes.gateways.connected}}/{{site.cartes.gateways.total}} En Ligne</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center text-primary">Liste Des Capteurs</h2>
+                <div class="con container-fluid">
+                    <mat-card matRipple class="cap" *ngFor="let cap of site.capteurs">
+                        <mat-card-header>
+                            <mat-card-title class="text-info">{{cap.type}}</mat-card-title>
+                            <mat-card-subtitle>{{cap.MAC}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <h3>{{cap.etat}}</h3>
+                        </mat-card-content>
+                        <div class="battery-container" [ngSwitch]="true">
+                            <ng-container *ngSwitchCase="cap.last_value <= 10 && cap.last_value >= 0">
+                                <p>{{cap.last_value}}</p>
+                                <fa-icon [icon]="battery_empty"></fa-icon>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="cap.last_value <= 25 && cap.last_value > 10">
+                                <p>{{cap.last_value}}</p>
+                                <fa-icon [icon]="battery_quart"></fa-icon>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="cap.last_value <= 50 && cap.last_value > 25">
+                                <p>{{cap.last_value}}</p>
+                                <fa-icon [icon]="battery_half"></fa-icon>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="cap.last_value <= 75 && cap.last_value > 50">
+                                <p>{{cap.last_value}}</p>
+                                <fa-icon [icon]="battery_three"></fa-icon>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="cap.last_value <= 100 && cap.last_value > 75">
+                                <p>{{cap.last_value}}</p>
+                                <fa-icon [icon]="battery_full"></fa-icon>
+                            </ng-container>
+                            <ng-container *ngSwitchDefault>
+                            </ng-container>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,577 @@
+<div class="wrapper">
+    <mat-tab-group dynamicHeight [selectedIndex]="tabValue" *ngIf="Sites.length>0; else Turn">
+        <mat-tab label="Global" *ngIf="data!=undefined">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-6 col-md-6 mb-6">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Production Globale</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.global.production.valeur}} kWh/Jr</div>
+                                        <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                            'text-danger' : data.global.production.isNegative,
+                                            'text-success' : !data.global.production.isNegative
+                                        }">
+                                            <span *ngIf="data.global.production.isNegative; else Over">
+                                                    <fa-icon class="dis" [icon]="under"></fa-icon>
+                                                </span>
+                                            <ng-template #Over>
+                                                <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                            </ng-template>
+                                            {{data.global.production.pourcentage}}%
+                                        </div>
+                                        <div class="float-right text-muted font-weight-light">530 kWh/Jr</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <fa-icon [icon]="time" class="fa-2x text-gray-300"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6 mb-6">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Temps de Marche Global</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.global.temps_de_marche.valeur}} Hr/Jr</div>
+                                        <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                        'text-danger' : data.global.temps_de_marche.isNegative,
+                                        'text-success' : !data.global.temps_de_marche.isNegative
+                                    }">
+                                            <span *ngIf="data.global.temps_de_marche.isNegative; else Over">
+                                                <fa-icon class="dis" [icon]="under"></fa-icon>
+                                            </span>
+                                            <ng-template #Over>
+                                                <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                            </ng-template>
+                                            {{data.global.temps_de_marche.pourcentage}}%
+                                        </div>
+                                        <div class="float-right text-muted font-weight-light">6 Hr/Jr</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <fa-icon [icon]="work" class="fa-2x text-gray-300"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Niveaux Silos</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.global.stock.valeur}} %</div>
+                                        <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                            'text-danger' : data.global.stock.isNegative,
+                                            'text-success' : !data.global.stock.isNegative
+                                        }">
+                                            <span *ngIf="data.global.stock.isNegative; else Over">
+                                                    <fa-icon class="dis" [icon]="under"></fa-icon>
+                                                </span>
+                                            <ng-template #Over>
+                                                <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                            </ng-template>
+                                            {{data.global.stock.pourcentage}}%
+                                        </div>
+                                        <div class="float-right text-muted font-weight-light">58.5 %</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <fa-icon [icon]="stock" class="fa-2x text-gray-300"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-4 mb-4">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Production / Temps de Marche </h6>
+                                <!-- <div class="dropdown no-arrow">
+                                    <a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="isCollapsed" (click)="collapse()" [ngClass]="{
+                        'collapsed' : isCollapsed
+                    }">
+                                        <fa-icon class="fa-sm fa-fw text-gray-400" [icon]="dots"></fa-icon>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" [ngClass]="{
+                        'show' : isCollapsed
+                    }">
+                                        <a class="dropdown-item" (click)="openDialog_2()">Paramètres</a>
+                                        <div class="dropdown-divider"></div>
+                                        <ul>
+                                            <li class="rounded-circle color primary"></li>
+                                            <li class="rounded-circle color success"></li>
+                                            <li class="rounded-circle color info"></li>
+                                            <li class="rounded-circle color danger"></li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-area col-auto">
+                                    <!-- <canvas class="chart" #prodTempsChartGlobale></canvas> -->
+                                    <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [xAxis]="xAxis" [yAxis]="yAxis" [timeline]="timeline" [results]="[data.global.production_chart,data.global.temps_chart]">
+                                    </ngx-charts-line-chart>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Sites">
+            <div class="site">
+                <button mat-fab class="floated-left d-block" color="primary" (click)="decSitesValue()" aria-label="Button left">
+                    <fa-icon [icon] = "arrow_left"></fa-icon>
+                </button>
+                <div class="cont">
+                    <h1 class="text-primary text-center mb-2">{{Sites[siteValue].name}}</h1>
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Production Journalière</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{Sites[siteValue].production.valeur}} kWh/Jr</div>
+                                            <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                            'text-danger' : Sites[siteValue].production.isNegative,
+                                            'text-success' : !Sites[siteValue].production.isNegative
+                                        }">
+                                                <span *ngIf="Sites[siteValue].production.isNegative; else Over">
+                                                    <fa-icon class="dis" [icon]="under"></fa-icon>
+                                                </span>
+                                                <ng-template #Over>
+                                                    <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                                </ng-template>
+                                                {{Sites[siteValue].production.pourcentage}}%
+                                            </div>
+                                            <div class="float-right text-muted font-weight-light">220 kWh/Jr</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <fa-icon [icon]="time" class="fa-2x text-gray-300"></fa-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Temps de Marche Journalière</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{Sites[siteValue].temps_de_marche.valeur}} Hr/Jr</div>
+                                            <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                        'text-danger' : Sites[siteValue].temps_de_marche.isNegative,
+                                        'text-success' : !Sites[siteValue].temps_de_marche.isNegative
+                                    }">
+                                                <span *ngIf="Sites[siteValue].temps_de_marche.isNegative; else Over">
+                                                <fa-icon class="dis" [icon]="under"></fa-icon>
+                                            </span>
+                                                <ng-template #Over>
+                                                    <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                                </ng-template>
+                                                {{Sites[siteValue].temps_de_marche.pourcentage}}%
+                                            </div>
+                                            <div class="float-right text-muted font-weight-light">3 Hr/Jr</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <fa-icon [icon]="work" class="fa-2x text-gray-300"></fa-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Niveau Silo</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{Sites[siteValue].stock.valeur}} %</div>
+                                            <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                            'text-danger' : Sites[siteValue].stock.isNegative,
+                                            'text-success' : !Sites[siteValue].stock.isNegative
+                                        }">
+                                                <span *ngIf="Sites[siteValue].stock.isNegative; else Over">
+                                                    <fa-icon class="dis" [icon]="under"></fa-icon>
+                                                </span>
+                                                <ng-template #Over>
+                                                    <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                                </ng-template>
+                                                {{Sites[siteValue].stock.pourcentage}}%
+                                            </div>
+                                            <div class="float-right text-muted font-weight-light">58.5 %</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <fa-icon [icon]="stock" class="fa-2x text-gray-300"></fa-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" m-10 row">
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Production / Temps de Marche / Silo</h6>
+                                    <!-- <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="isCollapsed" (click)="collapse()" [ngClass]="{
+                        'collapsed' : isCollapsed
+                    }">
+                                            <fa-icon class="fa-sm fa-fw text-gray-400" [icon]="dots"></fa-icon>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" [ngClass]="{
+                        'show' : isCollapsed
+                    }">
+                                            <a class="dropdown-item" (click)="openDialog_2()">Paramètres</a>
+                                            <div class="dropdown-divider"></div>
+                                            <ul>
+                                                <li class="rounded-circle color primary"></li>
+                                                <li class="rounded-circle color success"></li>
+                                                <li class="rounded-circle color info"></li>
+                                                <li class="rounded-circle color danger"></li>
+                                            </ul>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area col-auto">
+                                        <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [xAxis]="xAxis" [yAxis]="yAxis" [timeline]="timeline" [results]="[Sites[siteValue].production_chart,Sites[siteValue].temps_chart,Sites[siteValue].stock_chart]">
+                                        </ngx-charts-line-chart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button mat-fab class="floated-right d-block" (click)="incSitesValue()" color="primary" aria-label="Button right">
+                    <fa-icon [icon] = "arrow_right"></fa-icon>
+                </button>
+            </div>
+        </mat-tab>
+
+        <!-- <mat-tab label="Clients">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Production Global</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.clients.production.valeur}} kWh/Jr</div>
+                                        <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                            'text-danger' : data.clients.production.isNegative,
+                                            'text-success' : !data.clients.production.isNegative
+                                        }">
+                                            <span *ngIf="data.clients.production.isNegative; else Over">
+                                                    <fa-icon class="dis" [icon]="under"></fa-icon>
+                                                </span>
+                                            <ng-template #Over>
+                                                <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                            </ng-template>
+                                            {{data.clients.production.pourcentage}}%
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <fa-icon [icon]="time" class="fa-2x text-gray-300"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Temps de Marche Global</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.clients.temps_de_marche.valeur}} Hr/Jr</div>
+                                        <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                        'text-danger' : data.clients.temps_de_marche.isNegative,
+                                        'text-success' : !data.clients.temps_de_marche.isNegative
+                                    }">
+                                            <span *ngIf="data.clients.temps_de_marche.isNegative; else Over">
+                                                <fa-icon class="dis" [icon]="under"></fa-icon>
+                                            </span>
+                                            <ng-template #Over>
+                                                <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                            </ng-template>
+                                            {{data.clients.temps_de_marche.pourcentage}}%
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <fa-icon [icon]="work" class="fa-2x text-gray-300"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Stock Global</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.clients.stock.valeur}} %</div>
+                                        <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                            'text-danger' : data.clients.stock.isNegative,
+                                            'text-success' : !data.clients.stock.isNegative
+                                        }">
+                                            <span *ngIf="data.clients.stock.isNegative; else Over">
+                                                    <fa-icon class="dis" [icon]="under"></fa-icon>
+                                                </span>
+                                            <ng-template #Over>
+                                                <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                            </ng-template>
+                                            {{data.clients.stock.pourcentage}}%
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <fa-icon [icon]="stock" class="fa-2x text-gray-300"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" m-10 row">
+                    <div class="col-12">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Production / Temps de Marche</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="isCollapsed" (click)="collapse()" [ngClass]="{
+                        'collapsed' : isCollapsed
+                    }">
+                                        <fa-icon class="fa-sm fa-fw text-gray-400" [icon]="dots"></fa-icon>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" [ngClass]="{
+                        'show' : isCollapsed
+                    }">
+                                        <a class="dropdown-item" (click)="openDialog_2()">Paramètres</a>
+                                        <div class="dropdown-divider"></div>
+                                        <ul>
+                                            <li class="rounded-circle color primary"></li>
+                                            <li class="rounded-circle color success"></li>
+                                            <li class="rounded-circle color info"></li>
+                                            <li class="rounded-circle color danger"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area col-auto">
+                                    <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [xAxis]="xAxis" [yAxis]="yAxis" [timeline]="timeline" [results]="[data.clients.production_chart,data.clients.temps_chart]">
+                                    </ngx-charts-line-chart>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Stock</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="isCollapsed_2" (click)="collapse_2()" [ngClass]="{
+                            'collapsed' : isCollapsed_2
+                        }">
+                                            <fa-icon class="fa-sm fa-fw text-gray-400" [icon]="dots"></fa-icon>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" [ngClass]="{
+                            'show' : isCollapsed_2
+                        }">
+                                            <a class="dropdown-item" (click)="openDialog()">Paramètres</a>
+                                            <div class="dropdown-divider"></div>
+                                            <ul>
+                                                <li class="rounded-circle color primary"></li>
+                                                <li class="rounded-circle color success"></li>
+                                                <li class="rounded-circle color info"></li>
+                                                <li class="rounded-circle color danger"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area col-auto">
+                                        <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [xAxis]="xAxis" [yAxis]="yAxis" [timeline]="timeline" [results]="[data.clients.stock_chart]">
+                                        </ngx-charts-line-chart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab> -->
+
+        <!-- <mat-tab label="Ville">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Production Global</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.ville.production.valeur}} kWh/Jr</div>
+                                        <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                            'text-danger' : data.ville.production.isNegative,
+                                            'text-success' : !data.ville.production.isNegative
+                                        }">
+                                            <span *ngIf="data.ville.production.isNegative; else Over">
+                                                    <fa-icon class="dis" [icon]="under"></fa-icon>
+                                                </span>
+                                            <ng-template #Over>
+                                                <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                            </ng-template>
+                                            {{data.ville.production.pourcentage}}%
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <fa-icon [icon]="time" class="fa-2x text-gray-300"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Temps de Marche Global</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.ville.temps_de_marche.valeur}} Hr/Jr</div>
+                                        <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                        'text-danger' : data.ville.temps_de_marche.isNegative,
+                                        'text-success' : !data.ville.temps_de_marche.isNegative
+                                    }">
+                                            <span *ngIf="data.ville.temps_de_marche.isNegative; else Over">
+                                                <fa-icon class="dis" [icon]="under"></fa-icon>
+                                            </span>
+                                            <ng-template #Over>
+                                                <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                            </ng-template>
+                                            {{data.ville.temps_de_marche.pourcentage}}%
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <fa-icon [icon]="work" class="fa-2x text-gray-300"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Stock Global</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.ville.stock.valeur}} %</div>
+                                        <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
+                                            'text-danger' : data.ville.stock.isNegative,
+                                            'text-success' : !data.ville.stock.isNegative
+                                        }">
+                                            <span *ngIf="data.ville.stock.isNegative; else Over">
+                                                    <fa-icon class="dis" [icon]="under"></fa-icon>
+                                                </span>
+                                            <ng-template #Over>
+                                                <fa-icon class="dis-t" [icon]="over"></fa-icon>
+                                            </ng-template>
+                                            {{data.ville.stock.pourcentage}}%
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <fa-icon [icon]="stock" class="fa-2x text-gray-300"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" m-10 row">
+                    <div class="col-12">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Production / Temps de Marche</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="isCollapsed" (click)="collapse()" [ngClass]="{
+                        'collapsed' : isCollapsed
+                    }">
+                                        <fa-icon class="fa-sm fa-fw text-gray-400" [icon]="dots"></fa-icon>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" [ngClass]="{
+                        'show' : isCollapsed
+                    }">
+                                        <a class="dropdown-item" (click)="openDialog_2()">Paramètres</a>
+                                        <div class="dropdown-divider"></div>
+                                        <ul>
+                                            <li class="rounded-circle color primary"></li>
+                                            <li class="rounded-circle color success"></li>
+                                            <li class="rounded-circle color info"></li>
+                                            <li class="rounded-circle color danger"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area col-auto">
+                                    <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [xAxis]="xAxis" [yAxis]="yAxis" [timeline]="timeline" [results]="[data.ville.production_chart,data.ville.temps_chart]">
+                                    </ngx-charts-line-chart>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Stock</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="isCollapsed_2" (click)="collapse_2()" [ngClass]="{
+                            'collapsed' : isCollapsed_2
+                        }">
+                                            <fa-icon class="fa-sm fa-fw text-gray-400" [icon]="dots"></fa-icon>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" [ngClass]="{
+                            'show' : isCollapsed_2
+                        }">
+                                            <a class="dropdown-item" (click)="openDialog()">Paramètres</a>
+                                            <div class="dropdown-divider"></div>
+                                            <ul>
+                                                <li class="rounded-circle color primary"></li>
+                                                <li class="rounded-circle color success"></li>
+                                                <li class="rounded-circle color info"></li>
+                                                <li class="rounded-circle color danger"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area col-auto">
+                                        <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [xAxis]="xAxis" [yAxis]="yAxis" [timeline]="timeline" [results]="[data.ville.temps_chart]">
+                                        </ngx-charts-line-chart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab> -->
+    </mat-tab-group>
+    <ng-template #Turn>
+        <div class="turner">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-template>
+</div>

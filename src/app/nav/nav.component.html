@@ -1,0 +1,184 @@
+<div id="wrapper">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" [ngClass]="{
+    'toggled' : isCollapsed
+    }">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink='/home/dashboard'>
+            <div class="sidebar-brand-icon">
+                <img src="../assets/SmartOn.png" alt="SmartOn logo">
+            </div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard/Widgets -->
+        <div *ngIf="isSwitch; else Widgets">
+            <div>
+                <div *ngFor="let item of menus">
+                    <div *ngIf="!item.hasOwnProperty('subItems'); else Sub">
+                        <li class="nav-item" routerLink='{{item.routerLink}}' routerLinkActive="active">
+                            <a class="nav-link">
+                                <fa-icon class="ml-2 mr-2" [icon]="item.icon"></fa-icon>
+                                <span>{{item.title}}</span>
+                            </a>
+                        </li>
+                    </div>
+                    <ng-template #Sub>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" data-target="{{'#'+item.id}}" aria-expanded="{{!item.collapse}}" aria-controls="{{item.id}}" (click)="item.collapse = !item.collapse" [ngClass]="{
+                                'collapsed' : item.collapse
+                            }">
+                                <fa-icon class="ml-2 mr-2" [icon]="item.icon"></fa-icon>
+                                <span>{{item.title}}</span>
+                            </a>
+                            <div id="{{item.id}}" class="collapse" aria-labelledby="{{item.id}}" data-parent="#accordionSidebar" [ngClass]="{
+                                'show' : !item.collapse
+                            }">
+                                <div class=" py-2 collapse-inner rounded">
+                                    <div *ngFor="let sub of item.subItems">
+                                        <a class="collapse-item text-white" routerLink='{{sub.routerLink}}'>{{sub.title}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ng-template>
+                    <hr class="sidebar-divider my-0">
+                </div>
+            </div>
+        </div>
+        <ng-template #Widgets>
+            <div cdkDropListGroup>
+                <div cdkDropList [cdkDropListData]="widgets" class="widget-list" (cdkDropListDropped)="drop($event)">
+                    <div class="widget" *ngFor="let item of widgets" cdkDrag>
+                        <fa-icon [icon]="item.icon"></fa-icon>
+                        <p>{{item.title}}</p>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ul>
+    <!-- End of Sidebar -->
+    <div id="content-wrapper" class="d-flex flex-column content-wrapper">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" (click)="collapse()" class="btn btn-link d-md-none rounded-circle mr-3">
+        <fa-icon [icon]="barsIcon"></fa-icon>
+                </button>
+                <!-- <button id="WidgetToggleTop" (click)="switch()" class="btn btn-link d-none d-md-block rounded-circle mr-3">
+                    
+                    <div *ngIf="isSwitch; else Dash">
+                        <fa-icon [icon]="GridIcon"></fa-icon>
+                    </div>
+                    <ng-template #Dash>
+                        <fa-icon [icon]="ListIcon"></fa-icon>
+                    </ng-template>
+                            </button> -->
+
+                <!-- Topbar Search -->
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Recherche..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <fa-icon [icon]="SearchIcon"></fa-icon>
+                                </button>
+                        </div>
+                    </div>
+                </form>
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a class="nav-link dropdown-toggle" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <!-- Dropdown - Messages -->
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    <!-- Nav Item - Alerts -->
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle" (click)="alertClick()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span matBadge="{{notifications.length}}" matBadgeSize="small" [matBadgeHidden]="hidden()"><fa-icon [icon]="bellIcon" ></fa-icon></span>
+                        </a>
+                        <!-- Dropdown - Alerts -->
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" [ngClass]="{
+              'show': isAlertsClicked
+            }" aria-labelledby="alertsDropdown">
+                            <h6 class="dropdown-header">
+                                Alerts Center
+                            </h6>
+                            <a class="dropdown-item d-flex align-items-center" *ngFor="let notification of notifications">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-primary">
+                                        <fa-icon class="text-white" [icon]="degreePlanIcon"></fa-icon>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">{{notification.title}}</div>
+                                    <span class="font-weight-bold">{{notification.body}}</span>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <div class="topbar-divider d-none d-sm-block"></div>
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" (click)="profileClick()" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Name}}</span>
+                            <img class="img-profile rounded-circle" [src]="ImageURL">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" [ngClass]="{
+            'show': isProfileClicked
+            }" aria-labelledby="userDropdown">
+                            <a class="dropdown-item">
+                                <fa-icon [icon]="userAltIcon" class="mr-2 text-gray-400"></fa-icon>
+                                Profile
+                            </a>
+                            <a class="dropdown-item">
+                                <fa-icon [icon]="cogsIcon" class="mr-2 text-gray-400"></fa-icon>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a (click)="logout()" class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                                <fa-icon [icon]="signOutIcon" class="mr-2 text-gray-400"></fa-icon>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; ViaToile</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</div>

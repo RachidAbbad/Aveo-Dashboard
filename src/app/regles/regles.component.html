@@ -1,0 +1,59 @@
+<div class="" *ngIf="element_data!=undefined; else Turn">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Gestion des Régles</h1>
+        <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white" (click)="refresh()">
+            <fa-icon [icon]="sync" class="text-white-50"></fa-icon> Rafraîchir</a>
+    </div>
+    <div class="container-fluid">
+        <div *ngIf="true">
+            <div class="mat-elevation-z8 cont">
+                <table MatRipple mat-table [dataSource]="dataSource" matSort class="">
+
+                    <ng-container matColumnDef="nom">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom Régle </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nom_regle}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="site">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Site </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nom_site}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="toggle">
+                        <th mat-header-cell *matHeaderCellDef>Etat</th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-slide-toggle [(ngModel)]="element.active" (change)="switch(element)" [color]="color"></mat-slide-toggle>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef class="align-items-center">
+                            <button mat-icon-button color="primary" class="mt-2" (click)="openDialog()">
+                            <fa-icon [icon]="plus_sign"></fa-icon>
+                            </button>
+                        </mat-header-cell>
+
+                        <mat-cell *matCellDef="let row; let i=index;">
+                            <button mat-icon-button color="accent" (click)="modifyRegle(row)">
+                                <fa-icon [icon]="edit"></fa-icon>
+                            </button>
+
+                            <button mat-icon-button color="accent" (click)="deleteRegle(row)">
+                                <fa-icon [icon]="delete"></fa-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+
+    </div>
+</div>
+<ng-template #Turn>
+    <div class="turner">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

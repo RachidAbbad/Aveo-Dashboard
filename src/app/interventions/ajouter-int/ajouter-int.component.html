@@ -1,0 +1,168 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Ajouter Intervention</h1>
+    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white">
+        <fa-icon [icon]="download" class="text-white-50"></fa-icon> Importer Intervention</a>
+</div>
+<div class="container-fluid">
+    <mat-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="details">
+            <ng-template matStepLabel>Informations Generales</ng-template>
+            <div class="wrapper">
+                <div class=" row mt-4 justify-content-around">
+                    <div class="col-xl-4 card p-0 col-lg-5">
+                        <div class="card-header d-flex flex-row justify-content-between align-items-center mb-3">
+                            <h4 class="m-0 font-weight-bold text-primary">
+                                Détails
+                            </h4>
+                        </div>
+                        <form [formGroup]="details" class="container">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Type d'Intervention</mat-label>
+                                <mat-select [(value)]="Type" formControlName="type">
+                                    <mat-option value="preventif">Préventif</mat-option>
+                                    <mat-option value="correctif">Correctif</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div *ngIf="this.Type == 'preventif'">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Période</mat-label>
+                                    <input matInput formControlName="periode"  >
+                                </mat-form-field>
+                            </div>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Date</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Heure Debut</mat-label>
+                                <input matInput type="time" placeholder="Heure Debut" formControlName="heure_debut" >
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Heure Fin</mat-label>
+                                <input matInput type="time" placeholder="Heure Fin" formControlName="heure_fin">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Site</mat-label>
+                                <mat-select formControlName="site">
+                                    <mat-option *ngFor="let site of sites" value="{{site.id}}">{{site.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Nom Intervention</mat-label>
+                                <input matInput formControlName="nom">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Description Génerale</mat-label>
+                                <textarea matInput formControlName="description"></textarea>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Responsable Exécutif</mat-label>
+                                <mat-select formControlName="executif">
+                                    <mat-option *ngFor="let responsable of responsables" value="{{responsable.id}}">{{responsable.name}} {{responsable.prenom}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Contremaître d'Exécution</mat-label>
+                                <mat-select formControlName="contremaitre">
+                                    <mat-option *ngFor="let responsable of responsables" value="{{responsable.id}}">{{responsable.name}} {{responsable.prenom}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </form>
+                    </div>
+                    <div class="col-xl-3 card p-0 col-lg-5">
+                        <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                            <h4 class="m-0 font-weight-bold text-primary">
+                                Mode Opératoire
+                            </h4>
+                            <button mat-icon-button color="primary" (click)="openCondition()">
+                                <fa-icon [icon]="plus_sign"></fa-icon>
+                            </button>
+                        </div>
+                        <mat-action-list #ModeOpList>
+                            <mat-action-option *ngFor="let mode_op of mode_ops">
+                                <div class="flex-helper">
+                                    {{mode_op.zone}}
+                                    <div class="left-helper">
+                                        <button mat-icon-button class="" (click)="onClickModifyModeop(mode_op)">
+                                            <fa-icon class="text-danger" [icon]="edit"></fa-icon>
+                                        </button>
+                                        <button mat-icon-button class="" (click)="onClickDeleteModeop(mode_op)">
+                                            <fa-icon class="text-danger" [icon]="delete"></fa-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </mat-action-option>
+                        </mat-action-list>
+                    </div>
+                    <div class="col-xl-2 card p-0 col-lg-5">
+                        <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                            <h4 class="m-0 font-weight-bold text-primary">
+                                Outils
+                            </h4>
+                            <button mat-icon-button color="primary" (click)="openOutils()">
+                                <fa-icon [icon]="plus_sign"></fa-icon>
+                            </button>
+                        </div>
+                        <mat-action-list #OutilList>
+                            <mat-action-option *ngFor="let outil of outils">
+                                <div class="flex-helper">
+                                    {{outil}}
+                                    <button mat-icon-button class="" (click)="onClickDeleteOutil(outil)">
+                                        <fa-icon class="text-danger" [icon]="delete"></fa-icon>
+                                    </button>
+                                </div>
+                            </mat-action-option>
+                        </mat-action-list>
+                    </div>
+                    <div class="col-xl-2 card p-0 col-lg-5">
+                        <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                            <h4 class="m-0 font-weight-bold text-primary">
+                                Piéces
+                            </h4>
+                            <button mat-icon-button color="primary" (click)="openMateriel()">
+                                <fa-icon [icon]="plus_sign"></fa-icon>
+                            </button>
+                        </div>
+                        <mat-action-option *ngFor="let materiel of materiels">
+                            <div class="flex-helper">
+                                {{materiel}}
+                                <button mat-icon-button class="" (click)="onClickDeleteMateriel(materiel)">
+                                    <fa-icon class="text-danger" [icon]="delete"></fa-icon>
+                                </button>
+                            </div>
+                        </mat-action-option>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button mat-button color="primary" class="float-right mt-3" (click)="Submit()" [disabled]="suivant()" matStepperNext>Suivant</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Techniciens</ng-template>
+            <div class="row mt-4">
+                <div class="col-9">
+                    <full-calendar deepChangeDetection="true" class="cal" #calendar [options]="calendarOptions"></full-calendar>
+                </div>
+                <div class="col-3 card p-0">
+                    <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                        <h5 class="m-0 font-weight-bold text-primary">
+                            Liste des Techniciens Disponibles
+                        </h5>
+                    </div>
+                    <mat-selection-list [(ngModel)]="value_techniciens" [formControl]="tech_group" (selectionChange)="selectionChange($event)">
+                        <mat-list-option value="{{tech.id}}" *ngFor="let tech of techniciens" > 
+                            {{tech.name}} {{tech.prenom}}
+                        </mat-list-option>
+                    </mat-selection-list>
+                </div>
+            </div>
+            <div>
+                <button mat-button color="primary" class="float-right mt-3" (click)="valider()" [disabled]="disabled()">Valider</button>
+                <button mat-button color="secondary" class="float-right mt-3" (click)="goback()"  matStepperPrevious>Precedent</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</div>

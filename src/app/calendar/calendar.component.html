@@ -1,0 +1,41 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Gestion des Interventions</h1>
+</div>
+<div class="container-fluid">
+    <div class="row flex-wrap d-flex flex-row mb-3 align-items-center">
+        <form [formGroup]="group" class="w-90 d-flex filter-form flex-row align-items-center justify-content-around flex-wrap" *ngIf="show">
+            <mat-form-field class="p-0 mr-3" appearance="fill">
+                <mat-label>Site</mat-label>
+                <mat-select formControlName="site">
+                    <mat-option value=""></mat-option>
+                    <mat-option *ngFor="let site of sites" value="{{site.id}}">{{site.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="p-0 mr-3" appearance="fill">
+                <mat-label>Technicien</mat-label>
+                <mat-select formControlName="technicien">
+                    <mat-option value=""></mat-option>
+                    <mat-option *ngFor="let tech of techniciens" value="{{tech.id}}">{{tech.name}} {{tech.prenom}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="p-0 mr-3" appearance="fill">
+                <mat-label>Etat</mat-label>
+                <mat-select formControlName="etat">
+                    <mat-option value=""></mat-option>
+                    <mat-option value="Terminée"> Terminée </mat-option>
+                    <mat-option value="Programmée"> Programmée </mat-option>
+                    <mat-option value="En Cours"> En Cours </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="p-0 mr-3" appearance="fill">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option value=""></mat-option>
+                    <mat-option value="preventif"> Préventif </mat-option>
+                    <mat-option value="correctif"> Correctif </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
+    <full-calendar class="cal mb-3" [options]="calendarOptions"></full-calendar>
+</div>

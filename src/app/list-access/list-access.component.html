@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Veuillez choisir les sites à autoriser :</h1>
+<div mat-dialog-content>
+    <mat-selection-list #Sites [formControl]="list" [(ngModel)]="selectedOptions">
+        <mat-list-option *ngFor="let site of listeSite" [value]="site">
+            {{site.name}}
+        </mat-list-option>
+    </mat-selection-list>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button class="text-primary" [mat-dialog-close]="selectedOptions" [disabled]="list.invalid">Appliquer</button>
+</div>

@@ -1,0 +1,35 @@
+<div class="wrapper" mat-dialog-content>
+    <form [formGroup]="group">
+        <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Equipement</mat-label>
+            <input matInput formControlName="equipement" [matAutocomplete]="equip">
+            <mat-autocomplete #equip="matAutocomplete">
+                <mat-option *ngFor="let equipement of filteredEquipements | async" [value]="equipement">
+                    {{equipement}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field class="w-100 h-40" appearance="fill">
+            <mat-label>Actions</mat-label>
+            <mat-chip-list multiple #chipList>
+                <mat-chip *ngFor="let action of actions" [selectable]="selectable" [value]="action" [removable]="removable" (removed)="remove(action)">
+                    {{action}}
+                    <fa-icon matChipRemove [icon]="cancel" *ngIf="removable"></fa-icon>
+                </mat-chip>
+                <input placeholder="Nouvelle Action..." #actionInput [matAutocomplete]="auto" formControlName="actions" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let action of filteredActions | async" [value]="action">
+                    {{action}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+    </form>
+
+
+
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="{nom_equipement: group.value.equipement, action: this.actions}" [disabled]="group.invalid" color="primary">Valider</button>
+</div>

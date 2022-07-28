@@ -1,0 +1,49 @@
+<div class="" *ngIf="alertes != undefined; else Turn">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Alertes</h1>
+    </div>
+    <div class="container-fluid">
+        <div *ngIf="true">
+            <div class="mat-elevation-z8 mb-4">
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="titre">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Titre</th>
+                        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                        <td mat-cell *matCellDef="let element"> {{element.timestamp.format('MMMM Do, YYYY')}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="texte">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Texte</th>
+                        <td mat-cell *matCellDef="let element"> {{element.body}} </td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="criticite">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Criticité</th>
+                        <td mat-cell *matCellDef="let element"> {{element.gravity}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <!-- class="hover" (click)="clicked_row(row)"  -->
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+
+    </div>
+</div>
+<ng-template #Turn>
+    <div class="turner">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

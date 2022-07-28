@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>Ajouter Régle</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="row wrapper">
+        <div class="col-3 card p-3">
+            <form [formGroup]="group">
+                <mat-form-field appearance="fill">
+                    <mat-label>Nom</mat-label>
+                    <input matInput formControlName="nom">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Site</mat-label>
+                    <mat-select formControlName="site">
+                        <mat-option *ngFor="let site of sites" value="{{site.id}}">{{site.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="col-3 card p-0">
+            <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                <h4 class="m-0 font-weight-bold text-primary">
+                    Condition
+                </h4>
+                <button mat-icon-button color="primary" (click)="openCondition()">
+                    <fa-icon [icon]="plus_sign"></fa-icon>
+                </button>
+            </div>
+            <mat-action-list #conditionList>
+                <mat-action-option *ngFor="let condition of conditions">
+                    <div class="flex-helper">
+                        {{condition.type_condition}}
+                        <div class="left-helper">
+                            <button mat-icon-button (click)="modifierCondition(condition)">
+                                <fa-icon class="text-danger" [icon]="edit"></fa-icon>
+                            </button>
+                            <button mat-icon-button (click)="onClickDeleteCondition(condition)">
+                                <fa-icon class="text-danger" [icon]="delete"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                </mat-action-option>
+            </mat-action-list>
+        </div>
+        <div class="col-3 card p-0">
+            <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                <h4 class="m-0 font-weight-bold text-primary">
+                    Action
+                </h4>
+                <button mat-icon-button color="primary" (click)="openAction()">
+                    <fa-icon [icon]="plus_sign"></fa-icon>
+                </button>
+            </div>
+            <mat-action-list #actionList>
+                <mat-action-option *ngFor="let action of actions">
+                    <div class="flex-helper">
+                        {{action.type}}
+                        <div class="left-helper">
+                            <button mat-icon-button class="" (click)="modifierAction(action)">
+                                <fa-icon class="text-danger" [icon]="edit"></fa-icon>
+                            </button>
+                            <button mat-icon-button class="" (click)="onClickDeleteAction(action)">
+                                <fa-icon class="text-danger" [icon]="delete"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                </mat-action-option>
+            </mat-action-list>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close] (click)="sendData()" [disabled]="group.invalid" color="primary">Valider</button>
+</mat-dialog-actions>
