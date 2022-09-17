@@ -1,0 +1,35 @@
+.wrapper {
+    padding: 0;
+    margin: 0;
+    min-height: 50vh;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.cal {
+    min-height: 600px;
+    max-height: 700px;
+}
+
+.card {
+    min-height: 30rem !important;
+    margin-bottom: 2rem;
+}
+
+mat-form-field {
+    display: block;
+}
+
+.flex-helper {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .left-helper {
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+}

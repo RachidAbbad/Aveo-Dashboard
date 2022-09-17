@@ -1,0 +1,97 @@
+<div class=" d-flex align-items-center justify-content-between">
+    <button class=" btn-light btn btn-lg" (click)="return()">
+    <fa-icon [icon]="back"></fa-icon>
+    </button>
+    <div>
+        <button class="btn btn-secondary bot" (click)="relancer()">Relancer</button>
+        <button class="btn btn-success bot" (click)="valider()">Valider</button>
+    </div>
+</div>
+<div class="mat-elevation-z8 container">
+    <div class="row cont">
+        <div class="col-6 d-flex flex-column">
+            <p><b>Intervention:</b> {{element.nom_intervention}}</p>
+            <p><b>Date Intervention:</b> {{element.date_intervention.format("Do MMMM YYYY")}}</p>
+            <p><b>Intervenant:</b> {{element.nom_responsable_executif}}</p>
+            <p><b>Date Rapport:</b> {{element.date_rapport.format("Do MMMM YYYY")}}</p>
+            <p><b>Etat Intervention:</b> {{roundTo(element.etat,2)}}% </p>
+        </div>
+        <div class="col-6 d-flex flex-column">
+            <p><b>Etat:</b> {{element.etat_rapport ? "Validée" : "Non Validée"}}</p>
+            <p><b>Responsable:</b> {{element.nom_responsable}}</p>
+            <p><b>Execution:</b> {{element.nom_contremaitre_exploitation}}</p>
+            <p><b>Nom du Site:</b> {{element.nom_site}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="comment card shadow mb-4">
+            <div class="card-header py-3">
+                <h3 class="text-primary m-0">Commentaire Global:</h3>
+            </div>
+            <div class="card-body">
+                <p *ngFor="let comment of element.commantaire_generale.text">{{comment}}</p>
+                <div class="card mb-3 mt-3" *ngIf="!(element.commantaire_generale.audio.length == 0 && element.commantaire_generale.image.length == 0 && element.commantaire_generale.video.length == 0)">
+                    <div class="card-header py-3">
+                        <h4 class="text-info m-0">Media</h4>
+                    </div>
+                    <div class=" card-body d-flex flex-row justify-content-around align-items-center mb-2 flex-wrap row">
+                        <div *ngIf='element.commantaire_generale.audio != []'>
+                            <div *ngFor="let audio of element.commantaire_generale.audio">
+                                <audio *ngIf='audio != ""' controls class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/audios/'+ audio | safeHtml"></audio>
+                            </div>
+                        </div>
+                        <div *ngIf='element.commantaire_generale.image != []'>
+                            <div *ngFor="let image of element.commantaire_generale.image">
+                                <img *ngIf='image != ""' class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/images/'+image | safeHtml">
+                            </div>
+                        </div>
+                        <div *ngIf='element.commantaire_generale.video != []'>
+                            <div *ngFor="let video of element.commantaire_generale.video">
+                                <video *ngIf='video != ""' class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/videos/'+video | safeHtml"></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comment card shadow mb-4">
+            <div class="card-header py-3">
+                <h3 class="text-primary m-0">Commentaires Taches:</h3>
+            </div>
+            <div class="card-body">
+                <div class="card mb-4" *ngFor="let commentaire of element.commentaire_tache; let i=index;">
+                    <div class="card-header py-3">
+                        <h3 class="text-primary m-0">Tache {{i+1}}:</h3>
+                        <p class="font-weight-light m-0" [ngClass]="returnetatClass(commentaire)">{{returnEtat(commentaire)}}</p>
+                    </div>
+                    <div class="card-body">
+                        <p *ngFor="let comment of commentaire.text">{{comment}}</p>
+                        <div *ngIf='!(commentaire.audio == "" && commentaire.image == "" && commentaire.video == "")' class="card mb-3 mt-3">
+                            <div class="card-header py-3">
+                                <h4 class="text-info m-0">Media</h4>
+                            </div>
+                            <div class=" card-body d-flex flex-row justify-content-around align-items-center mb-2 flex-wrap row">
+                                <div *ngIf='commentaire.audio != []'>
+                                    <div *ngFor="let audio of commentaire.audio">
+                                        <audio *ngIf='audio != ""' controls class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/audios/'+ audio | safeHtml"></audio>
+                                    </div>
+                                </div>
+                                <div *ngIf='commentaire.image != []'>
+                                    <div *ngFor="let image of commentaire.image">
+                                        <img *ngIf='image != ""' class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/images/'+image | safeHtml">
+                                    </div>
+                                </div>
+                                <div *ngIf='commentaire.video != []'>
+                                    <div *ngFor="let video of commentaire.video">
+                                        <video *ngIf='video != ""' class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/videos/'+video | safeHtml"></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

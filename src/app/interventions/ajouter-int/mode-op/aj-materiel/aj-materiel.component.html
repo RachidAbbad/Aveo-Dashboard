@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Ajouter Matériel</h1>
+<div class="wrapper" mat-dialog-content>
+    <form [formGroup]="materiel">
+        <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Matériel</mat-label>
+            <input matInput formControlName="nom">
+        </mat-form-field>
+        <mat-form-field class="w-100" appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="materiel.value.nom" color="primary" [disabled]="materiel.invalid">Valider</button>
+</div>
