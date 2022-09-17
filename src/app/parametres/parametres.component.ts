@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-parametres',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./parametres.component.scss']
 })
 export class ParametresComponent implements OnInit {
-
+  save = faSave;
   constructor() { }
 
   ngOnInit(): void {

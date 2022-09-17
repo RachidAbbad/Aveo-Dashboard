@@ -113,6 +113,10 @@ export class NavComponent implements  OnInit{
     this.router.navigate(['/home/profile']);
   }
 
+  navigateToSettings(){
+    this.router.navigate(['/home/settings']);
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     // if (event.previousContainer === event.container) {
     //   moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

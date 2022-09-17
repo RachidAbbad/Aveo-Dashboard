@@ -15,6 +15,7 @@ import { NavComponent } from './nav.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from '../profile/profile.component';
+import { ParametresComponent } from '../parametres/parametres.component';
 
 
 
@@ -70,6 +71,10 @@ const routes: Routes = [
             {
                 path: 'profile',
                 component: ProfileComponent
+            },
+            {
+                path: 'settings',
+                component: ParametresComponent
             }
         ],
         canActivate: [AuthGuard]
