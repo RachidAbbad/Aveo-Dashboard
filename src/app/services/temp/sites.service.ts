@@ -26,8 +26,8 @@ export class SitesService {
         return this.http.get(this.API_URI.serverpath + '/site', this.options).pipe( map((response: Response) => response.json()));
     }
 
-    getSiteById(id): Observable<any> {
-        return this.http.get(this.API_URI.serverpath + '/site/' + id, this.options).pipe( map((response: Response) => response.json()));
+    getSiteById(id){
+        return this.http.get(this.API_URI.serverpath + '/site/' + id, this.options);
     }
 
     postSite(id,obj): Observable<any> {

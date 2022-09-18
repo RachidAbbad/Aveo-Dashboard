@@ -21,12 +21,15 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ProfileModule } from './profile/profile.module';
+import { ProfileComponent } from './profile/profile.component';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
+    ProfileComponent,
     LoginComponent,
     ForgotPasswordComponent
   ],
@@ -34,6 +37,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     BrowserModule,
     AppRoutingModule,
     NavModule,
+    ProfileModule,
     MatStepperModule,
     MatFormFieldModule,
     ReactiveFormsModule,

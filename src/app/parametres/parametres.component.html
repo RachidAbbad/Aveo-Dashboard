@@ -1,39 +1,21 @@
 <div class="container-fluid">
     <h1 class="h3 mb-0 mb-2 text-gray-800">Paramètres</h1>    
-<div class="ui card border-left-primary shadow">
-    <div class="card-body">
-        <div class="row align-items-primary flex-nowrap">
-            <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                    Periodicité
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class=""> 
-                            <input type="checkbox" id="checkQuotidien" name="checkQuotidien">
-                            Quotidien
-                        </div>
-                        <div class=""> 
-                            <input type="checkbox" id="checkHebdomadaire" name="checkHebdomadaire">
-                            Hebdomadaire
-                        </div>
-                        
+    <div class="ui card border-left-primary shadow">
+        <div class="card-body">
+            <div class="row align-items-primary flex-nowrap">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Periodicité
                     </div>
-                    <div class="col-md-6">
-                        <div class=""> 
-                            <input type="checkbox" id="checkMensuel" name="checkMensuel">
-                            Mensuel
-                        </div>
-                        <div class=""> 
-                            <input type="checkbox" id="checkAnnuel" name="checkAnnuel">
-                            Annuel
-                        </div>
+                        <div *ngFor="let p of periodicities" class=""> 
+                                <input type="checkbox" id="checkQuotidien" name="checkQuotidien">
+                                {{p.value}}
+                        </div> 
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 <div class="d-flex flex-row-reverse">
     <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white my-2"><fa-icon [icon]="save" class="text-white-50"></fa-icon> Enregistrer</a>
 </div> 

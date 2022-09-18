@@ -1,4 +1,6 @@
 <div class="wrapper">
+    
+        
     <mat-tab-group dynamicHeight [selectedIndex]="tabValue" *ngIf="Sites.length>0; else Turn">
         <mat-tab label="Global" *ngIf="data!=undefined">
             <div class="container-fluid">
@@ -260,7 +262,8 @@
                 </button>
             </div>
         </mat-tab>
-
+        
+        
         <!-- <mat-tab label="Clients">
             <div class="container-fluid">
                 <div class="row">
@@ -569,6 +572,19 @@
             </div>
         </mat-tab> -->
     </mat-tab-group>
+    <div class="d-flex flex-row-reverse ">
+            <mat-form-field appearance="fill" class="periodicityContainer">
+                <mat-label>Selectionez un choix</mat-label>
+                <mat-select style="width: 200px;">
+                    <mat-option value="Quotidien">Quotidien</mat-option>
+                    <mat-option value="Mensuel">Mensuel</mat-option>
+                    <mat-option value="Custom">Custom</mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+        
+    </div>
+    
     <ng-template #Turn>
         <div class="turner">
             <mat-spinner></mat-spinner>

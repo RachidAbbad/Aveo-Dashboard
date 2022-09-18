@@ -42,6 +42,24 @@ export class UserService {
     return true;
     return false;
   }
+
+  getPeriodicities() {
+    //return this.http.get(this.URL+'/api/Auth/login',{headers:  this.headers})
+    return [{
+      "id": "63187acff039a3ab94276950",
+      "value": "Quotidien"
+    },{
+      "id": "63187b2bf039a3ab9427695f",
+      "value": "Mensuel"
+    },{
+      "id": "631f79838eac18d6e07bc06b",
+      "value": "Hebdomadaire"
+    },{
+      "id": "631f79d58eac18d6e07bc06c",
+      "value": "Annuel"
+    }];
+  }
+
   get currentUser(){
     return JSON.parse(localStorage.getItem('user'));
   }
