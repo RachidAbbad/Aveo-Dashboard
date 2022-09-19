@@ -29,7 +29,7 @@ export class InterventionService {
     return this.http.get(this.url+'/api/Dashboard/'+this.user.id_site, {headers: this.headers});
   }
   getResponsable(){
-    return this.http.get(this.url+'/api/User/org/'+this.user.id_org, {headers: this.headers});
+    return this.http.get(this.url+'/api/User/org/'+this.user.id_site, {headers: this.headers});
   }
   getRapports(){
     // Site/'+'5fbccf26e06d8cb8a4ac500e'

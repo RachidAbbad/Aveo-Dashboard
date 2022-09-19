@@ -127,11 +127,11 @@ export class AjConditionComponent implements OnInit {
       this.senseurs.forEach((senseur, index) => {
         this.payload.splice
         let payloads = senseur.payload.replace(/ /g, '').replace(/"/g, '').replace(/ /g, '').replace(/\{/g, '').replace(/:/g, '').replace(/\}/g, '').replace(/\,/g, '').split('0');
-        let i = payloads.findIndex((element) => {
-          if (element == "")
+        /*let i = payloads.findIndex((element) => {
+          if (element == " ")
             return true;
         })
-        payloads.splice(i, 1);
+        payloads.splice(i, 1);*/
         this.senseurs[index].payload = payloads;
       });
     });

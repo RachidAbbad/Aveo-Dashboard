@@ -38,7 +38,7 @@ export class RapportsComponent implements OnInit, AfterViewInit {
   
   ngOnInit(): void {
     moment.locale("fr");
-    this.ser.getRapports().subscribe((result: any)=>{
+    /*this.ser.getRapports().subscribe((result: any)=>{
       this.rapports = result.data;
       this.rapports.forEach((rapport, index) => {
         rapport.date_rapport = moment(result.data[index].date_rapport);
@@ -46,7 +46,7 @@ export class RapportsComponent implements OnInit, AfterViewInit {
       });
       this.dataSource.data = this.rapports;
       setTimeout(()=> this.paginate(), 100);
-    });
+    });*/
     // setInterval(()=>
     // {
     //   this.ser.getRapports().subscribe((result: any)=>{
@@ -70,8 +70,13 @@ export class RapportsComponent implements OnInit, AfterViewInit {
       id_responsable: "eiejfe",
       id_contremaitre_exploitation: "rifjijf",
       id_site: "iewrjgfeig",
-      commantaire_generale: {audio: [], etat: true, id_commentaire: "fiejifje", image: [], id_tache:"", text:["le chauffage a été réparé avec succès"],video:[]},
-      commentaire_tache: [],
+      commantaire_generale: {audio: [""], etat: true, id_commentaire: "fiejifje", image: ["https://cdn.hellowatt.fr/media/uploads/zinnia/2021/05/06/consommation-chaudiere-electrique-interieur-cable.jpg"], id_tache:"", text:["le chauffage a été réparé avec succès"],video:[]},
+      commentaire_tache: [{
+        text:["Nettoyage des fummées terminé"], audio:[], video:[], image:["https://www.systemed.fr/images/conseils/xrealiser-tubage-d-conduit-fumee-6293-p7-l528-h528-c.jpg.pagespeed.ic.Hkk36eRiDC.webp"], etat:true
+      },
+      {
+        text:["La dépose de la buse de fummée du raccordement de conduit"], audio:[], video:[""], image:["https://keiflin-cheminees.com/wp-content/uploads/2019/03/conduit.jpg"]
+      }],
       id_responsable_executif:"efiejf",
       nom_contremaitre_exploitation:"Ahmed Hamid",
       nom_responsable_executif: "Ahmed Hatim",
