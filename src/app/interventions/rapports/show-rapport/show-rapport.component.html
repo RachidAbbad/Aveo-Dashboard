@@ -37,17 +37,17 @@
                     <div class=" card-body d-flex flex-row justify-content-around align-items-center mb-2 flex-wrap row">
                         <div *ngIf='element.commantaire_generale.audio != []'>
                             <div *ngFor="let audio of element.commantaire_generale.audio">
-                                <audio *ngIf='audio != ""' controls class="col-lg-4 col-md-12 p-2" [src]="audio | safeHtml"></audio>
+                                <audio *ngIf='audio != ""' controls class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/audios/'+ audio | safeHtml"></audio>
                             </div>
                         </div>
                         <div *ngIf='element.commantaire_generale.image != []'>
                             <div *ngFor="let image of element.commantaire_generale.image">
-                                <img *ngIf='image != ""' class="col-lg-4 col-md-12 p-2" [src]="image | safeHtml">
+                                <img *ngIf='image != ""' class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/images/'+image | safeHtml">
                             </div>
                         </div>
                         <div *ngIf='element.commantaire_generale.video != []'>
                             <div *ngFor="let video of element.commantaire_generale.video">
-                                <video *ngIf='video != ""' class="col-lg-4 col-md-12 p-2" [src]="video | safeHtml"></video>
+                                <video *ngIf='video != ""' class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/videos/'+video | safeHtml"></video>
                             </div>
                         </div>
                     </div>
@@ -78,12 +78,12 @@
                                 </div>
                                 <div *ngIf='commentaire.image != []'>
                                     <div *ngFor="let image of commentaire.image">
-                                        <img *ngIf='image != ""' class="col-lg-4 col-md-12 p-2" [src]="image | safeHtml">
+                                        <img *ngIf='image != ""' class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/images/'+image | safeHtml">
                                     </div>
                                 </div>
                                 <div *ngIf='commentaire.video != []'>
                                     <div *ngFor="let video of commentaire.video">
-                                        <video *ngIf='video != ""' class="col-lg-4 col-md-12 p-2" [src]="video | safeHtml"></video>
+                                        <video *ngIf='video != ""' class="col-lg-4 col-md-12 p-2" [src]="'https://www.admin.smartonviatoile.com/videos/'+video | safeHtml"></video>
                                     </div>
                                 </div>
                             </div>

@@ -76,7 +76,12 @@
                                 <h1 class="h5 mb-0 font-weight-bold text-gray-800">{{temperature}} °C
                                 </h1>
                             </div>
-                             
+                             <div class="">
+                            <div class="" style="width: fit-content;">
+                                <span *ngIf="taux" class="text-info" style="font-size: 13px; margin-left: 10px;">Max: {{taux[0].max}} °C</span><b style="padding-left:2em;"></b>
+                                <span *ngIf="taux" class="text-info" style="font-size: 13px;">Min: {{taux[0].min}} °C</span>
+                            </div>
+                        </div>
                         </div>
                         <div class="col-auto">
                             <fa-icon [icon]="temp_icon" class="fa-2x text-gray-300"></fa-icon>
@@ -93,7 +98,15 @@
                             </div>
                             <div class="" *ngIf="humidite">
                                 <h1 class="h5 mb-0 font-weight-bold text-gray-800">{{humidite}} %</h1>
-                                
+                                 <div class="col">
+                                    <div class="centered" style="width: fit-content;margin-bottom: 10px;">
+                                        <span *ngIf="taux" style="color:rgb(255, 255, 255);font-size: 13px; margin-left: 10px;">Max:
+                                                                            {{taux[1].max}} %</span><b style="padding-left:2em;">
+                                                                    </b>
+                                        <span *ngIf="taux" style="color:rgb(255, 255, 255);font-size: 13px;">Min:
+                                                                            {{taux[1].min}} %</span>
+                                    </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="col-auto">
@@ -103,7 +116,15 @@
                 </div>
                  <div class="" *ngIf="humidite">
                     <h1 style="color: aliceblue;text-align: center;width: 100%;">{{humidite}} %</h1>
-                   
+                    <div class="col">
+                        <div class="centered" style="width: fit-content;margin-bottom: 10px;">
+                            <span *ngIf="taux" style="color:rgb(255, 255, 255);font-size: 13px; margin-left: 10px;">Max:
+                                                                {{taux[1].max}} %</span><b style="padding-left:2em;">
+                                                        </b>
+                            <span *ngIf="taux" style="color:rgb(255, 255, 255);font-size: 13px;">Min:
+                                                                {{taux[1].min}} %</span>
+                        </div>
+                    </div>
                 </div> 
             </div>
             <div class="ui card col-3 ml-2 mr-2 mb-3 border-left-warning shadow" *ngIf="eau" [ngStyle]="">
@@ -115,7 +136,11 @@
                             </div>
                             <div class="" *ngIf="humidite">
                                 <h3 style="h5 mb-0 font-weight-bold text-gray-800">{{title}}</h3>
-                              
+                                <div class="">
+                                    <div class="" style="">
+                                        <span style="h5 mb-0 font-weight-bold text-gray-800">{{live}}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-auto">

@@ -1,4 +1,6 @@
 <div class="wrapper">
+    
+        
     <mat-tab-group dynamicHeight [selectedIndex]="tabValue" *ngIf="Sites.length>0; else Turn">
         <mat-tab label="Global" *ngIf="data!=undefined">
             <div class="container-fluid">
@@ -11,16 +13,16 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Production Globale</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.global.production.valeur}} kWh/Jr</div>
                                         <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
-                                            'text-danger' : true,
-                                            'text-success' : false
+                                            'text-danger' : data.global.production.isnegative,
+                                            'text-success' : !data.global.production.isnegative
                                         }">
-                                            <span *ngIf="true; else Over">
+                                            <span *ngIf="data.global.production.isnegative; else Over">
                                                     <fa-icon class="dis" [icon]="under"></fa-icon>
                                                 </span>
                                             <ng-template #Over>
                                                 <fa-icon class="dis-t" [icon]="over"></fa-icon>
                                             </ng-template>
-                                            8%
+                                            {{data.global.production.pourcentage}}%
                                         </div>
                                         <div class="float-right text-muted font-weight-light">kWh/Jr</div>
                                     </div>
@@ -39,16 +41,16 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Temps de Marche Global</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.global.temps_de_marche.valeur}} Hr/Jr</div>
                                         <div class="font-weight-bold text-uppercase mt-1" [ngClass]="{
-                                            'text-danger' : false,
-                                            'text-success' : true
-                                        }">
-                                            <span *ngIf="false; else Over">
-                                                    <fa-icon class="dis" [icon]="under"></fa-icon>
-                                                </span>
+                                        'text-danger' : data.global.temps_de_marche.isnegative,
+                                        'text-success' : !data.global.temps_de_marche.isnegative
+                                    }">
+                                            <span *ngIf="data.global.temps_de_marche.isnegative; else Over">
+                                                <fa-icon class="dis" [icon]="under"></fa-icon>
+                                            </span>
                                             <ng-template #Over>
                                                 <fa-icon class="dis-t" [icon]="over"></fa-icon>
                                             </ng-template>
-                                            10%
+                                            {{data.global.temps_de_marche.pourcentage}}%
                                         </div>
                                         <div class="float-right text-muted font-weight-light">Hr/Jr</div>
                                     </div>
@@ -154,6 +156,7 @@
                                                 </ng-template>
                                                 {{Sites[siteValue].production.pourcentage}}%
                                             </div>
+                                            <div class="float-right text-muted font-weight-light">220 kWh/Jr</div>
                                         </div>
                                         <div class="col-auto">
                                             <fa-icon [icon]="time" class="fa-2x text-gray-300"></fa-icon>
@@ -181,6 +184,7 @@
                                                 </ng-template>
                                                 {{Sites[siteValue].temps_de_marche.pourcentage}}%
                                             </div>
+                                            <div class="float-right text-muted font-weight-light">3 Hr/Jr</div>
                                         </div>
                                         <div class="col-auto">
                                             <fa-icon [icon]="work" class="fa-2x text-gray-300"></fa-icon>
@@ -208,6 +212,7 @@
                                                 </ng-template>
                                                 {{Sites[siteValue].stock.pourcentage}}%
                                             </div>
+                                            <div class="float-right text-muted font-weight-light">58.5 %</div>
                                         </div>
                                         <div class="col-auto">
                                             <fa-icon [icon]="stock" class="fa-2x text-gray-300"></fa-icon>
@@ -257,7 +262,8 @@
                 </button>
             </div>
         </mat-tab>
-
+        
+        
         <!-- <mat-tab label="Clients">
             <div class="container-fluid">
                 <div class="row">
@@ -567,17 +573,18 @@
         </mat-tab> -->
     </mat-tab-group>
     <div class="d-flex flex-row-reverse ">
-        <mat-form-field appearance="fill" class="periodicityContainer">
-            <mat-label>Selectionez un choix</mat-label>
-            <mat-select style="width: 200px;">
-                <mat-option value="Quotidien">Quotidien</mat-option>
-                <mat-option value="Mensuel">Mensuel</mat-option>
-                <mat-option value="Custom">Custom</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="fill" class="periodicityContainer">
+                <mat-label>Selectionez un choix</mat-label>
+                <mat-select style="width: 200px;">
+                    <mat-option value="Quotidien">Quotidien</mat-option>
+                    <mat-option value="Mensuel">Mensuel</mat-option>
+                    <mat-option value="Custom">Custom</mat-option>
+                </mat-select>
+            </mat-form-field>
+            
         
+    </div>
     
-</div>
     <ng-template #Turn>
         <div class="turner">
             <mat-spinner></mat-spinner>

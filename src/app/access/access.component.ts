@@ -80,9 +80,6 @@ export class AccessComponent implements OnInit {
       {
         var test =false;
         console.log("site name "+ element.name);
-        if(!this.users[selectedId].sites_autorises){
-          this.users[selectedId].sites_autorises = [];
-        }
         this.users[selectedId].sites_autorises.forEach(site =>
         {
           console.log("elem  id "+ element.name+ "site id "+ site.name);
