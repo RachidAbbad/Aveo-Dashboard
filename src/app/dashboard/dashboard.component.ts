@@ -6,6 +6,7 @@ import { faClipboardCheck, faClipboardList, faEllipsisV, faGraduationCap, faChev
 import { MatDialog } from '@angular/material/dialog';
 import { interval } from 'rxjs';
 import { element } from 'protractor';
+import { UserService } from '../services/user.service';
 
 export interface Content {
     production: {
@@ -69,6 +70,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   isCollapsed_2 = false;
   data;
   siteValue=0;
+  PeriodicitiesSel: Array<any> = new Array<any>();
   
   //ng Chart Options
   legend: boolean = true;
@@ -85,7 +87,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   colorScheme = {
     domain: ['rgba(28, 200, 138,1)', 'rgba(78, 115, 223, 1)', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
-  constructor(private dialogue: MatDialog, private ser: DashboardService) { 
+  constructor(private dialogue: MatDialog, private ser: DashboardService, private userService: UserService) { 
     
   }
 
@@ -114,6 +116,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.refr = interval(1000*60).subscribe(x=> {
       this.getData();
     });
+
+    this.userService.getUserPeriodicities().subscribe((result : any)=>
+      {
+        let data= result.data;
+        data.forEach((element:any)=>{
+            this.PeriodicitiesSel.push(element);
+        })
+      }
+    )
+      
+
 
   }
   ngOnDestroy()

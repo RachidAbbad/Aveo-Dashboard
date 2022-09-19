@@ -575,10 +575,8 @@
     <div class="d-flex flex-row-reverse ">
             <mat-form-field appearance="fill" class="periodicityContainer">
                 <mat-label>Selectionez un choix</mat-label>
-                <mat-select style="width: 200px;">
-                    <mat-option value="Quotidien">Quotidien</mat-option>
-                    <mat-option value="Mensuel">Mensuel</mat-option>
-                    <mat-option value="Custom">Custom</mat-option>
+                <mat-select  style="width: 200px;">
+                    <mat-option *ngFor=" let s of PeriodicitiesSel" [value]="s.id">{{s.value}}</mat-option>
                 </mat-select>
             </mat-form-field>
             

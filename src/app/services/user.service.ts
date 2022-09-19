@@ -4,13 +4,14 @@ import { Injectable } from '@angular/core';
 import { Globalpath } from './globalPath';
 import {map} from 'rxjs/operators';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import { stringify } from 'querystring';
 
 @Injectable()
 export class UserService {
   private URL = Globalpath.global_path;
   private token = localStorage.getItem('token');
   private user: User;
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8'});
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization':'Bearer '+this.token});
   constructor( private http: HttpClient, private router: Router) { }
 
   login(credentials: {email:string, password: string}){
@@ -44,7 +45,6 @@ export class UserService {
   }
 
   getPeriodicities() {
-    //return this.http.get(this.URL+'/api/Auth/login',{headers:  this.headers})
     return [{
       "id": "63187acff039a3ab94276950",
       "value": "Quotidien"
@@ -58,6 +58,16 @@ export class UserService {
       "id": "631f79d58eac18d6e07bc06c",
       "value": "Annuel"
     }];
+  }
+
+  getUserPeriodicities(){
+    let id_user = JSON.parse(localStorage.getItem('user')).id;
+    return this.http.get(this.URL+'/api/User/Periodicitie/'+id_user,{headers:  this.headers})
+  }
+
+  saveUserPeriodicities(periodicities: Array<string>){
+    let id_user = JSON.parse(localStorage.getItem('user')).id;
+    return this.http.put(this.URL+'/api/User/Periodicitie/'+id_user,JSON.stringify(periodicities),{headers:  this.headers})
   }
 
   get currentUser(){
