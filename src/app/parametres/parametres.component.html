@@ -1,22 +1,40 @@
 <div class="container-fluid">
-    <h1 class="h3 mb-0 mb-2 text-gray-800">Paramètres</h1>    
+  <h1 class="h3 mb-0 mb-2 text-gray-800">Paramètres</h1>
+  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit(settingsForm)">
     <div class="ui card border-left-primary shadow">
-        <div class="card-body">
-            <div class="row align-items-primary flex-nowrap">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Periodicité
-                    </div>
-                        <div *ngFor="let p of periodicities" class=""> 
-                                <input type="checkbox" id="checkQuotidien" name="checkQuotidien">
-                                {{p.value}}
-                        </div> 
-                    </div>
-                </div>
+      <div class="card-body">
+        <div class="row align-items-primary flex-nowrap">
+          <div class="col mr-2" formGroupName="periodesCheckBoxs">
+            <div
+              class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+            >
+              Periodicités
             </div>
+            <div *ngFor="let control of settingsForm.get('periodesCheckBoxs').value | keyvalue" class="">
+              <input
+                type="checkbox"
+                checked="control.value"
+                (change)="changeCheck(control.key, $event)"
+                formControlName = "{{control.key}}"
+              />
+              {{ control.key }}
+            </div>
+          </div>
         </div>
-
-<div class="d-flex flex-row-reverse">
-    <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white my-2"><fa-icon [icon]="save" class="text-white-50"></fa-icon> Enregistrer</a>
-</div> 
+      </div>
+    </div>
+    <div class="d-flex flex-row-reverse">
+        <button type="submit" [disabled]="buttonStat"
+          class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white my-2"
+          ><fa-icon [icon]="save" class="text-white-50"></fa-icon> Enregistrer</button
+        >
+      </div>
+  </form>
+  
 </div>
+
+<ng-template #Turn>
+  <div class="turner">
+      <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
