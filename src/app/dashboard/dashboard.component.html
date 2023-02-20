@@ -128,6 +128,7 @@
                     </div>
                 </div>
             </div>
+            
         </mat-tab>
         <mat-tab label="Sites">
             <div class="site">
@@ -573,15 +574,14 @@
         </mat-tab> -->
     </mat-tab-group>
     <div class="d-flex flex-row-reverse ">
-            <mat-form-field appearance="fill" class="periodicityContainer">
-                <mat-label>Selectionez un choix</mat-label>
-                <mat-select  style="width: 200px;">
-                    <mat-option *ngFor=" let s of PeriodicitiesSel" [value]="s.id">{{s.value}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            
-        
+        <mat-form-field appearance="fill" class="periodicityContainer">
+            <mat-label>Selectionez une période</mat-label>
+            <mat-select (selectionChange)="changePeriodicitie($event)" style="width: 200px;">
+                <mat-option *ngFor=" let s of PeriodicitiesSel" [value]="s.id">{{s.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
+    
     
     <ng-template #Turn>
         <div class="turner">

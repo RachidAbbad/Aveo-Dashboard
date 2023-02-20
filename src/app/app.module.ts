@@ -23,6 +23,10 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ProfileModule } from './profile/profile.module';
 import { ProfileComponent } from './profile/profile.component';
+import { CustomPeriodeComponent } from './dashboard/custom-periode/custom-periode.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 @NgModule({
@@ -31,7 +35,8 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     NavComponent,
     ProfileComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CustomPeriodeComponent
   ],
   imports: [
     BrowserModule,
@@ -40,8 +45,11 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     ProfileModule,
     MatStepperModule,
     MatFormFieldModule,
+    MatDialogModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatNativeDateModule,
+        MatDatepickerModule,
     MatButtonModule,
     FontAwesomeModule,
     HttpClientModule,

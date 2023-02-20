@@ -47,16 +47,24 @@ export class UserService {
   getPeriodicities() {
     return [{
       "id": "63187acff039a3ab94276950",
-      "value": "Quotidien"
+      "value": "Quotidien",
+      "periode": 1
     },{
       "id": "63187b2bf039a3ab9427695f",
-      "value": "Mensuel"
+      "value": "Mensuel",
+      "periode": 30
     },{
       "id": "631f79838eac18d6e07bc06b",
-      "value": "Hebdomadaire"
+      "value": "Hebdomadaire",
+      "periode": 7
     },{
       "id": "631f79d58eac18d6e07bc06c",
-      "value": "Annuel"
+      "value": "Annuel",
+      "periode": 365
+    },{
+      "id": "6334f6f6eb8159c1a2273b5d",
+      "value": "Personalisé",
+      "periode": null
     }];
   }
 

@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Péride personnalisée</h1>
+<div class="wrapper" mat-dialog-content>
+  <form [formGroup]="customPeriode">
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Date Début</mat-label>
+      <input matInput [matDatepicker]="pickerStart" formControlName="dateStart" />
+      <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Date Fin</mat-label>
+      <input matInput [matDatepicker]="pickerEnd" formControlName="dateEnd" />
+      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-button
+    [mat-dialog-close]="customPeriode.value"
+    color="primary"
+    [disabled]="customPeriode.invalid"
+  >
+    Valider
+  </button>
+</div>

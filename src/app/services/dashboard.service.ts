@@ -7,10 +7,13 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class DashboardService {
-
   private URL = Globalpath.global_path;
   private token = localStorage.getItem('token');
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': 'Bearer ' + this.token });
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    charset: 'UTF-8',
+    Authorization: 'Bearer ' + this.token,
+  });
   private user: {
     id: string;
     name: string;
@@ -31,9 +34,12 @@ export class DashboardService {
   }
 
   GetInfo() {
-    return this.http.get(this.URL+'/api/Dashboard/dashboard/'+ this.user.id_site, {
-      headers: this.headers
-    });
+    return this.http.get(
+      this.URL + '/api/Dashboard/dashboard/' + this.user.id_site,
+      {
+        headers: this.headers,
+      }
+    );
     /*return {
         global: {
           production: { isNegative: false, pourcentage: 40, valeur: 200 },
@@ -478,14 +484,46 @@ export class DashboardService {
         ]
       };*/
   }
+
   GetInfoBySite(id) {
     return this.http.get(this.URL + '/api/Dashboard/dashboard/site/' + id, {
-      headers: this.headers
+      headers: this.headers,
     });
   }
+
   GetListSite() {
     return this.http.get(this.URL + '/api/Dashboard/' + this.user.id_site, {
-      headers: this.headers
+      headers: this.headers,
     });
+  }
+
+  GetGlobalInfosDate(dateStart:Date, dateEnd:Date) {
+    return this.http.get(
+      this.URL +
+        '/api/Dashboard/dashboard/' +
+        dateStart.toISOString() +
+        '/' +
+        dateEnd.toISOString() +
+        '/' +
+        this.user.id_site,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  GetInfoBySiteAndDate(dateStart:Date, dateEnd:Date) {
+    return this.http.get(
+      this.URL +
+        '/api/Dashboard/dashboard/site/' +
+        dateStart.toISOString() +
+        '/' +
+        dateEnd.toISOString() +
+        '/' +
+        this.user.id_site,
+      {
+        headers: this.headers,
+      }
+    );
   }
 }
